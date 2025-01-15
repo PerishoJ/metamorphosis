@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6xdxyjom4dr3"]
+[gd_scene load_steps=12 format=3 uid="uid://b6xdxyjom4dr3"]
 
-[ext_resource type="Texture2D" uid="uid://xx800scvccak" path="res://checker.png" id="1_81dyd"]
-[ext_resource type="Script" path="res://tank/tank_controls.gd" id="2_u0ugl"]
+[ext_resource type="Texture2D" uid="uid://xx800scvccak" path="res://checker.png" id="1_lvdit"]
+[ext_resource type="Script" path="res://vehicle_body_testing/vehicle_controls.gd" id="2_7873y"]
+[ext_resource type="Script" path="res://vehicle_body_testing/speed_grabber.gd" id="3_oy7js"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5oft3"]
-albedo_texture = ExtResource("1_81dyd")
+albedo_texture = ExtResource("1_lvdit")
 uv1_scale = Vector3(32, 32, 32)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_2pvge"]
@@ -17,8 +18,10 @@ subdivide_depth = 16
 size = Vector3(1000, 1, 1000)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wvwcj"]
+size = Vector3(1.7, 1, 4.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_40a5v"]
+size = Vector3(1.7, 1, 4.5)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_001oq"]
 
@@ -41,57 +44,64 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_rlalv")
 
 [node name="tank" type="VehicleBody3D" parent="."]
-engine_force = 100.0
-brake = 50.0
+mass = 1900.0
+engine_force = 3000.0
+brake = 10000.0
 steering = 0.261799
-script = ExtResource("2_u0ugl")
-pwr = 20.0
+script = ExtResource("2_7873y")
+pwr = 10000.0
 
 [node name="mesh" type="MeshInstance3D" parent="tank"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.788638, 0)
 mesh = SubResource("BoxMesh_wvwcj")
 
 [node name="Wheel_FR" type="VehicleWheel3D" parent="tank"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.375, 1)
-brake = 50.0
-wheel_radius = 0.3
-suspension_travel = 0.1
-suspension_stiffness = 1.5
-suspension_max_force = 10.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.375, 1.625)
+brake = 10000.0
+use_as_traction = true
+use_as_steering = true
+suspension_stiffness = 10.0
+suspension_max_force = 10000.0
 
 [node name="Wheel_FL" type="VehicleWheel3D" parent="tank"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.375, 0.875)
-brake = 50.0
-wheel_radius = 0.3
-suspension_travel = 0.1
-suspension_stiffness = 1.5
-suspension_max_force = 10.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.375, 1.75)
+brake = 10000.0
+use_as_traction = true
+use_as_steering = true
+suspension_stiffness = 10.0
+suspension_max_force = 10000.0
 
 [node name="Wheel_BL" type="VehicleWheel3D" parent="tank"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01555, 0.375, -1)
-brake = 50.0
-wheel_radius = 0.3
-suspension_travel = 0.1
-suspension_stiffness = 1.5
-suspension_max_force = 10.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01555, 0.375, -1.5)
+brake = 10000.0
+use_as_traction = true
+suspension_stiffness = 10.0
+suspension_max_force = 10000.0
 
 [node name="Wheel_BR" type="VehicleWheel3D" parent="tank"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.375, -1)
-brake = 50.0
-wheel_radius = 0.3
-suspension_travel = 0.1
-suspension_stiffness = 1.5
-suspension_max_force = 10.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.375, -1.5)
+brake = 10000.0
+use_as_traction = true
+suspension_stiffness = 10.0
+suspension_max_force = 10000.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tank"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8125, 0)
 shape = SubResource("BoxShape3D_40a5v")
 
 [node name="Camera3D" type="Camera3D" parent="tank"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 3.625)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.25, -5)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.25, -0.678603, 0.69065, -0.0669872, 0.699469, 0.711516, -0.965926, -0.224144, 0.129409, -5.25, 4.375, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2a7c4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer" node_paths=PackedStringArray("vehicle")]
+offset_right = 233.0
+offset_bottom = 46.0
+script = ExtResource("3_oy7js")
+vehicle = NodePath("../../tank")
