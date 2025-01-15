@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://b6xdxyjom4dr3"]
+
+[ext_resource type="Texture2D" uid="uid://xx800scvccak" path="res://checker.png" id="1_81dyd"]
+[ext_resource type="Script" path="res://tank/tank_controls.gd" id="2_u0ugl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5oft3"]
+albedo_texture = ExtResource("1_81dyd")
+uv1_scale = Vector3(32, 32, 32)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2pvge"]
+material = SubResource("StandardMaterial3D_5oft3")
+size = Vector2(1000, 1000)
+subdivide_width = 16
+subdivide_depth = 16
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rlalv"]
+size = Vector3(1000, 1, 1000)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wvwcj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_40a5v"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_001oq"]
+
+[sub_resource type="Sky" id="Sky_mji1b"]
+sky_material = SubResource("ProceduralSkyMaterial_001oq")
+
+[sub_resource type="Environment" id="Environment_2a7c4"]
+background_mode = 2
+sky = SubResource("Sky_mji1b")
+
+[node name="World" type="Node3D"]
+
+[node name="floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+mesh = SubResource("PlaneMesh_2pvge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_rlalv")
+
+[node name="tank" type="VehicleBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+engine_force = 100.0
+brake = 50.0
+steering = 0.261799
+script = ExtResource("2_u0ugl")
+pwr = 500.0
+
+[node name="mesh" type="MeshInstance3D" parent="tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.913638, 0)
+mesh = SubResource("BoxMesh_wvwcj")
+
+[node name="Wheel_FR" type="VehicleWheel3D" parent="tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 1)
+brake = 50.0
+wheel_radius = 0.2
+
+[node name="Wheel_FL" type="VehicleWheel3D" parent="tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 0.875)
+brake = 50.0
+wheel_radius = 0.2
+
+[node name="Wheel_BL" type="VehicleWheel3D" parent="tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01555, 0.5, -1)
+brake = 50.0
+wheel_radius = 0.2
+
+[node name="Wheel_BR" type="VehicleWheel3D" parent="tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -1)
+brake = 50.0
+wheel_radius = 0.2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9375, 0)
+shape = SubResource("BoxShape3D_40a5v")
+
+[node name="Camera3D" type="Camera3D" parent="tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 3.625)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.25, -0.678603, 0.69065, -0.0669872, 0.699469, 0.711516, -0.965926, -0.224144, 0.129409, -5.25, 4.375, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2a7c4")
