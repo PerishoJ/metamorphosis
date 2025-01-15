@@ -44,12 +44,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_rlalv")
 
 [node name="tank" type="VehicleBody3D" parent="."]
-mass = 1900.0
-engine_force = 3000.0
-brake = 10000.0
-steering = 0.261799
+center_of_mass_mode = 1
 script = ExtResource("2_7873y")
-pwr = 10000.0
+engine_force_value = 80.0
+steering_max = 0.3
+turn_speed = 1.0
 
 [node name="mesh" type="MeshInstance3D" parent="tank"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.788638, 0)
@@ -57,30 +56,24 @@ mesh = SubResource("BoxMesh_wvwcj")
 
 [node name="Wheel_FR" type="VehicleWheel3D" parent="tank"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.375, 1.625)
-brake = 10000.0
-use_as_traction = true
 use_as_steering = true
 suspension_stiffness = 10.0
 suspension_max_force = 10000.0
 
 [node name="Wheel_FL" type="VehicleWheel3D" parent="tank"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.375, 1.75)
-brake = 10000.0
-use_as_traction = true
 use_as_steering = true
 suspension_stiffness = 10.0
 suspension_max_force = 10000.0
 
 [node name="Wheel_BL" type="VehicleWheel3D" parent="tank"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01555, 0.375, -1.5)
-brake = 10000.0
 use_as_traction = true
 suspension_stiffness = 10.0
 suspension_max_force = 10000.0
 
 [node name="Wheel_BR" type="VehicleWheel3D" parent="tank"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.375, -1.5)
-brake = 10000.0
 use_as_traction = true
 suspension_stiffness = 10.0
 suspension_max_force = 10000.0
@@ -91,6 +84,9 @@ shape = SubResource("BoxShape3D_40a5v")
 
 [node name="Camera3D" type="Camera3D" parent="tank"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.25, -5)
+
+[node name="CenterOfMass" type="Node3D" parent="tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.375)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.25, -0.678603, 0.69065, -0.0669872, 0.699469, 0.711516, -0.965926, -0.224144, 0.129409, -5.25, 4.375, 0)
