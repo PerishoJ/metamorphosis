@@ -15,7 +15,7 @@ func _process(delta):
 var cmt = false
 func _physics_process(delta):
   if Input.is_action_pressed("fwd"):
-    print("Moving")
+    print("Moving @ " + str(pwr) + " force")
     engine_force = pwr
   if Input.is_action_pressed("exit"):
     get_tree().quit()
