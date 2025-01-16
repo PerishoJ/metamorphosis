@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://dl5c5eufqij5a"]
+
+[ext_resource type="PackedScene" uid="uid://3j33xmty5dcw" path="res://scene_save_and_load_testing/vehicle_body_module.tscn" id="1_wam78"]
+
+[node name="TankEditorScene" type="Node3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AddBtn" type="Button" parent="CanvasLayer"]
+offset_left = 22.0
+offset_top = 439.0
+offset_right = 104.0
+offset_bottom = 471.0
+text = "ADD"
+
+[node name="RemoveBtn" type="Button" parent="CanvasLayer"]
+offset_left = 22.0
+offset_top = 491.0
+offset_right = 104.0
+offset_bottom = 523.0
+text = "REMOVE"
+
+[node name="PartsList" type="ItemList" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 56.0
+offset_right = 127.0
+offset_bottom = 196.0
+item_count = 1
+item_0/text = "VehicleBody"
+
+[node name="PartsLabel" type="Label" parent="CanvasLayer"]
+offset_left = 26.0
+offset_top = 20.0
+offset_right = 66.0
+offset_bottom = 43.0
+text = "Part"
+
+[node name="MountsList" type="ItemList" parent="CanvasLayer"]
+offset_left = 18.0
+offset_top = 269.0
+offset_right = 125.0
+offset_bottom = 409.0
+
+[node name="MountsLabel" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 233.0
+offset_right = 144.0
+offset_bottom = 256.0
+text = "Mounting Point
+"
+
+[node name="SaveBtn" type="Button" parent="CanvasLayer"]
+offset_left = 1037.0
+offset_top = 31.0
+offset_right = 1116.0
+offset_bottom = 70.0
+text = "Save"
+
+[node name="PrototypeVehicle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="VehicleModule" parent="PrototypeVehicle" instance=ExtResource("1_wam78")]

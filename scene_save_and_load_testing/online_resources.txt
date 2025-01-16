@@ -1,0 +1,31 @@
+https://forum.godotengine.org/t/how-to-save-a-scene-at-run-time/33234/3
+
+Contents
+
+==================================
+
+You can use method PackedScene.pack(node) to pack a node and its children into a PackedScene, and then save it with ResourceSaver:
+
+var packed_scene = PackedScene.new()
+packed_scene.pack(get_tree().get_current_scene())
+ResourceSaver.save("res://my_scene.tscn", packed_scene)
+
+You can then load the packed scene back and instance it as explained in the docs 58:
+
+# Load the PackedScene resource
+var packed_scene = load("res://my_scene.tscn")
+# Instance the scene
+var my_scene = packed_scene.instance()
+add_child(my_scene)
+
+Notice you must specify the format in the path extension. In my case I am saving my scene as .tscn. To get a list of all the valid extensions for a resource (PackedScene in this case) use:
+
+# Returns: scn, res, xml, xscn, tscn
+ResourceSaver.get_recognized_extensions(packed_scene)
+
+EDIT:
+
+As mentioned by @subhajitroy86 in the comments, you must make sure to set the owner of the child nodes (otherwise the children won’t be saved):
+
+add_child(new_child)
+new_child.set_owner(self)
